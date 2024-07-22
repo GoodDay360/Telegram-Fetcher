@@ -1,0 +1,12 @@
+; This data for the client to access
+[Access]
+session =
+id =
+hash =
+
+; Client settings
+[Client]
+timeout = 30000
+device_model = scriptgram
+lang_code = es-ES
+

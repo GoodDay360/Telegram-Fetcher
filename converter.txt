@@ -1,0 +1,2 @@
+stickytape rcdtool.py --add-python-path "D:\Codes\rcdtool\venv\Lib\site-packages" --add-python-module tqdm --add-python-module telethon > rcdtool-converted.py
+
