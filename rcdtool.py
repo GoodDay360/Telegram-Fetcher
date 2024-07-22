@@ -97,6 +97,7 @@ def get_args():
 
 
 def get_config(config_filename: str):
+    config_filename = Path.joinpath(BASE_DIR, config_filename)
     """Create a config object from config file.
 
     Args:
@@ -170,7 +171,7 @@ async def process(client: TelegramClient,
             if current == total:
                 progress.close()  # Close progress bar when download finishes
         await client.download_file(message.media, file, progress_callback=progress_callback)
-    print(f'Downloaded to "{output_filename}"')
+    print(f'\nDownloaded to "{output_filename}"')
 
 
 def main():
