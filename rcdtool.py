@@ -160,18 +160,23 @@ async def process(client: TelegramClient,
 
     print('Downloading...\n')
    
-    total_size = message.media.document.size
-    progress = tqdm(total=total_size, unit='B', unit_scale=True, unit_divisor=1024)
-    
-    with open(output_filename, 'wb+') as file:
-        # Get the total file size for the progress bar
-        async def progress_callback(current, total):
-            """Custom progress callback function using tqdm."""
-            progress.update(current - progress.n)  # Update progress bar with downloaded bytes
-            if current == total:
-                progress.close()  # Close progress bar when download finishes
-        await client.download_file(message.media, file, progress_callback=progress_callback)
-    print(f'\nDownloaded to "{output_filename}"')
+    try:
+        total_size = message.media.document.size
+        progress = tqdm(total=total_size, unit='B', unit_scale=True, unit_divisor=1024)
+        
+        with open(output_filename, 'wb+') as file:
+            # Get the total file size for the progress bar
+            async def progress_callback(current, total):
+                """Custom progress callback function using tqdm."""
+                progress.update(current - progress.n)  # Update progress bar with downloaded bytes
+                if current == total:
+                    progress.close()  # Close progress bar when download finishes
+            await client.download_file(message.media, file, progress_callback=progress_callback)
+    except:
+        with open(output_filename, 'wb+') as file:
+            await client.download_file(message.media, file)
+
+    print(f'\nDownloaded to: "{output_filename}"')
 
 
 def main():
